@@ -17,15 +17,16 @@ architecture does_something of eq_generic is
     --these are the architecture declarations (subtype / signal)
     --we can declare internal signals, components of other designs, constants, ... , all to be used in this architecture
     
-        --in subtype we can save a data type (std_logic_vector (3 downto 0)) in this logic_vector_size "variable" (creating a special data type)
-    subtype logic_vector_size is std_logic_vector (3 downto 0);
+        --in subtype we can save a data type (std_logic_vector (4 downto 0)) in this logic_vector_size "variable" (creating a special data type)
+    subtype logic_vector_size is std_logic_vector (4 downto 0);
 
         --in signal we can declare an internal signal of any kind (result, which has the data type logic_vector_size)
-    signal result : logic_vector_size;
+    signal internal_result : logic_vector_size;
 
     begin
 
-        result <= switches;
+        internal_result <= input_a + input_b;
+        output_ab <= internal_result;
 
     end does_something;
             
