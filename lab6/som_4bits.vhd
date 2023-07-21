@@ -28,7 +28,7 @@ begin
             a => a(1),
             b => b(1),
             ci => c0,
-            co => c1c0,
+            co => c1,
             sum => sum(1)
         );
     soma_3 : entity work.som_1bit(arch_som_1bit)
