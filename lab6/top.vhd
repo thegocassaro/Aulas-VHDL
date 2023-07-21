@@ -23,7 +23,7 @@ begin
             num_out => a
         );
 
-    somador_subtrator : entity work.somador_4bits(arch_sum4bits)
+    som_sub : entity work.som_4bits(arch_som_4bits)
         port map(
             a => a,
             b => sw(3 downto 0),
