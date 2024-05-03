@@ -27,6 +27,8 @@ begin
         b_in(1) => sw(1),
         b_in(2) => sw(2),
         b_in(3) => sw(3),
+        -- acho que daria pra fazer b_in => sw(3 downto 0)
+        -- e similarmente           b_out => b_out_signal
         
         b_out(0) => b_out_signal(0),
         b_out(1) => b_out_signal(1),
