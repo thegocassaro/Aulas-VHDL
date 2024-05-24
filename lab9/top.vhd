@@ -1,46 +1,62 @@
-library ieee;
-use ieee.std_logic_1164.all;
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 24.05.2024 11:25:55
+-- Design Name: 
+-- Module Name: top - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
 
 entity top is
-    port(
-        an : out std_logic_vector(7 downto 0);
-        sseg : out std_logic_vector(7 downto 0);
-        clk: in std_logic
-    );
-
+    Port ( clk : in STD_LOGIC;
+           sseg : out STD_LOGIC_VECTOR (7 downto 0);
+           an : out STD_LOGIC_VECTOR (7 downto 0));
 end top;
 
-architecture top_arch of top is
+architecture Behavioral of top is
 
-    constant N : integer := 49999999; 
-    signal enable : std_logic;
-    signal divide_clk : integer range 0 to N;
+constant N : integer := 99999; 
+signal enable : std_logic;
+signal divide_clk : integer range 0 to N;
 
------
+begin
 
-    led_mux_unit : entity work.led_mux8(arch)
-
-    port map(
-
-        clk => clk,
-        an => an,
-        sseg => sseg,
-        reset => '0',
-
-        in0 => "10000001",
-        in1 => "11001111",
-        in2 => "10010010",
-        in3 => "10000110",
-        in4 => "11001101",
-        in5 => "10100101",
-        in6 => "10110000",
-        in7 => "10001111"
-    );
-
-    --divide_clk
+    fsm_unit: entity work.fsm(fsm_arch)
+        port map(
+            clk=> clk,
+            an=>an,
+            sseg=>sseg,
+            enable=>enable
+            
+        );
+    
     enable <= '1' when divide_clk = N else '0';
-     
-     PROCESS (clk)
+
+    PROCESS (clk)
         BEGIN
             IF (clk'EVENT AND clk='1') THEN
                 divide_clk <= divide_clk+1;
@@ -48,6 +64,7 @@ architecture top_arch of top is
                     divide_clk <= 0;
                 END IF;
             END IF;
-     END PROCESS;
+    END PROCESS;
 
-end top_arch;
+
+end Behavioral;
