@@ -28,6 +28,7 @@ begin
       end if;
    end process;
 
+    --posso fazer isso?
     up_squares      <= "10011100";
     down_squares    <= "11100010";
 
@@ -36,6 +37,8 @@ begin
    begin
       case state_reg is
         when s0 =>
+        --estou fazendo a logica de saida e de proximo estado juntas nesse caso,
+        --mas pra fsm's mais complexas, dividir em logica de proximo estado e saidas moore ou mealy 
             an <= "01111111";
             sseg <= up_squares;
 

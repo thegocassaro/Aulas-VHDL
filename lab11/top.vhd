@@ -10,7 +10,7 @@ end top;
 
 architecture arch of top is
 
-constant N : integer := 49999999; --100MHz / 50MHz = 2
+constant N : integer := 49999999; --100MHz / 50MHz = 2Hz = 0.5sec/revolucao
 signal enable : std_logic;
 signal divide_clk : integer range 0 to N;
 
