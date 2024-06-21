@@ -22,6 +22,7 @@ begin
             an => an,
             sseg => sseg,
             enable => enable,
+            reset => '0',
 
             en <= sw(0),
             c2 <= sw(1)

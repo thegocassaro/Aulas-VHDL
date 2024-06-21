@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 
 entity fsm is
    port(
-      clk        : in  std_logic;
-      en, cw     : in  std_logic;
-      an, sseg   : out std_logic
+      clk, reset, enable        : in  std_logic;
+      en, cw                    : in  std_logic;
+      an, sseg                  : out std_logic
    );
 end fsm;
 
