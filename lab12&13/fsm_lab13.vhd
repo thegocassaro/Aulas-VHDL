@@ -4,10 +4,9 @@ use ieee.std_logic_1164.all;
 entity fsm_parking_lot is
 
 port(
-    clk, enable         : in std_logic;
+    clk, enable, reset  : in std_logic;
     a, b                : in std_logic;
-    car_enter, car_exit : out std_logic;
-    an, sseg            : out std_logic_vector(7 downto 0)
+    car_enter, car_exit : out std_logic
 );
 
 end fsm_parking_lot;
@@ -26,7 +25,9 @@ begin
         if (reset = '1') then
             state_reg <= s0;
         elsif (clk'event and clk = '1') then
-            state_reg <= state_next;
+            if (enable='1') then
+                state_reg <= state_next;
+            end if;
         end if;
     end process;
 
@@ -34,6 +35,10 @@ begin
     -- next-state/output logic
     process(state_reg, a, b)
     begin
+        
+        state_next <= state_reg;
+        car_enter <= '0';
+        car_exit <= '0';        
 
         case state_reg is
 
@@ -42,10 +47,10 @@ begin
                     state_next <= s1;
                     car_enter <= '1';   --mealy out
 
-                elseif a = '0' and b = '0' then
+                elsif a = '0' and b = '0' then
                     state_next <= s0;
 
-                else
+                else 
                     state_next <= s3;
 
                 end if;
@@ -55,7 +60,7 @@ begin
                     state_next <= s0;
                     car_exit <= '1';    --mealy out
 
-                elseif a = '1' and b = '0' then
+                elsif a = '1' and b = '0' then
                     state_next <= s1;
 
                 else
@@ -68,7 +73,7 @@ begin
                 if b = '0' then 
                     state_next <= s1;
 
-                elseif a = '1' and b = '1' then
+                elsif a = '1' and b = '1' then
                     state_next <= s2;
 
                 else
@@ -80,7 +85,7 @@ begin
                 if b = '0' then 
                     state_next <= s0;
 
-                elseif a = '0' and b = '1' then
+                elsif a = '0' and b = '1' then
                     state_next <= s3;
 
                 else

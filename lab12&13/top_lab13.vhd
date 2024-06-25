@@ -5,7 +5,7 @@ entity top is
 
 port(
     clk                     : in std_logic;
-    btn                     : in std_logic_vector(1 downto 0);
+    btn                     : in std_logic_vector(2 downto 0);
     an, sseg                : out std_logic_vector(7 downto 0)
 );
 
@@ -35,7 +35,7 @@ begin
             END IF;
     END PROCESS;
     
-    
+    --debounces
     debounce_unit_a : entity work.db_fsm(arch)
     
     port map(
@@ -54,6 +54,7 @@ begin
         reset => '0'
     );
 
+    --fsm
     fsm_unit : entity work.fsm_parking_lot(arch_fsm)
     
     port map(
@@ -70,14 +71,18 @@ begin
 
     );
     
+    --contador
     contador_unit : entity work.debounce_test(arch)
     
     port map(
         clk => clk,
-        btn => car_enter,
-        --dec => car_exit,
+        inc => car_enter,
+        dec => car_exit,
+        clr => btn(2),
         an => an,
         sseg => sseg
     );
 
 end arch_top;
+
+--onde eu poderia colocar o edge detecion circuit?
