@@ -13,10 +13,10 @@ end disp_hex_mux;
 
 architecture arch of disp_hex_mux is
    -- each 7-seg led enabled (2^18/4)*10 ns (16 ms)
-   constant N    : integer := 18;                  --PQ "N" EH 18?
+   constant N    : integer := 18;                  
    signal q_reg  : unsigned(N - 1 downto 0);
    signal q_next : unsigned(N - 1 downto 0);
-   signal sel    : std_logic_vector(1 downto 0);   --ENTENDER COMO FUNCIONA ESSE SEL
+   signal sel    : std_logic;   
    signal hex    : std_logic_vector(3 downto 0);
 begin
    -- register
@@ -32,16 +32,25 @@ begin
    -- next-state logic for the counter
    q_next <= q_reg + 1;
 
+   
+   --Ja aqui, esses dois primeiros blocos servem pra realizar a varredura dos displays,
+   --ele cria um contador free run e vai somando q_reg (17 downto 0) infinitamente. Depois
+   --pega os dois primeiros bits mais significativos e usa como seletora pra qual display
+   --fica aceso por vez (mudei pra apenas 1 bit pois vou usar so duas casas pra contagem).
+   --Se quiser deixar a varredura mais rapida ou mais lenta, basta mudar o N ou o bit do q_reg
+   --que voce for pegar.
+
+
    -- 2 MSBs (most significant bit) of counter to control 4-to-1 multiplexing
-   sel <= std_logic_vector(q_reg(N - 1 downto N - 2));
+   sel <= std_logic(q_reg(N - 2));
    process(sel, hex2, hex3) 
    begin
       case sel is
-         when "00" =>
-            an(3 downto 0) <= "1110";
+         when '0' =>
+            an(1 downto 0) <= "10";
             hex            <= hex2;
          when others =>
-            an(3 downto 0) <= "1101";
+            an(1 downto 0) <= "01";
             hex            <= hex3;
       end case;
    end process;

@@ -28,7 +28,7 @@ begin
    an(7 downto 4)<="111111";
    
    -- instantiate hex display time-multiplexing circuit
-   disp_unit : entity work.disp_hex_mux
+   disp_unit : entity work.disp_hex_mux(arch)
       port map(
          clk   => clk,
          reset => '0',
@@ -72,11 +72,12 @@ begin
 
    --O jeito q eu entendi que funciona eh q q0_reg eh incrementado (no caso do lab13
    --a cada vez que car_enter apresentar nivel logico 1) e a conta eh interpretada na
-   --base binaria, ou seja, começando por "00000000" -> "00000001" -> "00000010" -> ...
+   --base binaria, ou seja, começando por "00000000" -> "00000001" -> "00000010" -> ... (q0_reg)
    --Dessa forma, quando queremos pegar unidade e dezena, basta dividirmos o vetor de 8 (d_count 7 downto 0)
    --ao meio: "0000"(dezena) e "0010"(unidade), porem desse jeito ficamos restritos a contar
    --em hexadecimal, ja que _ _ _ _ (2³ 2² 2¹ 2⁰), logo de 0 a 15. A dezena seria hex3
-   -- e a unidade hex2
+   --e a unidade hex2.
+
 
    process(clk)
    begin
