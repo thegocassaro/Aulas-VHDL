@@ -6,17 +6,17 @@ entity disp_hex_mux is
       clk, reset : in  std_logic;
       hex3, hex2 : in  std_logic_vector(3 downto 0);
       -- hex1, hex0 : in  std_logic_vector(3 downto 0);
-      an         : out std_logic_vector(3 downto 0);
+      an         : out std_logic_vector(1 downto 0);
       sseg       : out std_logic_vector(7 downto 0)
    );
 end disp_hex_mux;
 
 architecture arch of disp_hex_mux is
    -- each 7-seg led enabled (2^18/4)*10 ns (16 ms)
-   constant N    : integer := 18;
+   constant N    : integer := 18;                  --PQ "N" EH 18?
    signal q_reg  : unsigned(N - 1 downto 0);
    signal q_next : unsigned(N - 1 downto 0);
-   signal sel    : std_logic_vector(1 downto 0);
+   signal sel    : std_logic_vector(1 downto 0);   --ENTENDER COMO FUNCIONA ESSE SEL
    signal hex    : std_logic_vector(3 downto 0);
 begin
    -- register
@@ -28,9 +28,11 @@ begin
          q_reg <= q_next;
       end if;
    end process;
+
    -- next-state logic for the counter
    q_next <= q_reg + 1;
-   -- 2 MSBs of counter to control 4-to-1 multiplexing
+
+   -- 2 MSBs (most significant bit) of counter to control 4-to-1 multiplexing
    sel <= std_logic_vector(q_reg(N - 1 downto N - 2));
    process(sel, hex2, hex3) 
    begin

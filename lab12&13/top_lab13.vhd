@@ -72,13 +72,15 @@ begin
     );
     
     --contador
-    contador_unit : entity work.debounce_test(arch)
+    contador_unit : entity work.counter(arch)
     
     port map(
         clk => clk,
+
         inc => car_enter,
         dec => car_exit,
         clr => btn(2),
+        
         an => an,
         sseg => sseg
     );
