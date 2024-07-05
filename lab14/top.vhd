@@ -47,45 +47,45 @@ port map(
 mux_unit_3 : entity work.mux_4x1(cond_arch)
 
 port map(
-    i(3) => sw(7);  --L3
-    i(2) => inc_out(3);
-    i(1) => sw(3);  --SHR_in
-    i(0) => reg(3);
-    c => cod_out;
-    s => mux_out(3);
+    i(3) => sw(7),  --L3
+    i(2) => inc_out(3),
+    i(1) => sw(3),  --SHR_in
+    i(0) => reg(3),
+    c => cod_out,
+    s => mux_out(3)
 );
 
 mux_unit_2 : entity work.mux_4x1(cond_arch)
 
 port map(
-    i(3) => sw(6);  --L2
-    i(2) => inc_out(2);
-    i(1) => reg(3);
-    i(0) => reg(2);
-    c => cod_out;
-    s => mux_out(2);
+    i(3) => sw(6),  --L2
+    i(2) => inc_out(2),
+    i(1) => reg(3),
+    i(0) => reg(2),
+    c => cod_out,
+    s => mux_out(2)
 );
 
 mux_unit_1 : entity work.mux_4x1(cond_arch)
 
 port map(
-    i(3) => sw(5);  --L1
-    i(2) => inc_out(1);
-    i(1) => reg(2);
-    i(0) => reg(1);
-    c => cod_out;
-    s => mux_out(1);
+    i(3) => sw(5),  --L1
+    i(2) => inc_out(1),
+    i(1) => reg(2),
+    i(0) => reg(1),
+    c => cod_out,
+    s => mux_out(1)
 );
 
 mux_unit_0 : entity work.mux_4x1(cond_arch)
 
 port map(
-    i(3) => sw(4);  --L0;
-    i(2) => inc_out(0);
-    i(1) => reg(1);
-    i(0) => reg(0);
-    c => cod_out;
-    s => mux_out(0);
+    i(3) => sw(4),  --L0,
+    i(2) => inc_out(0),
+    i(1) => reg(1),
+    i(0) => reg(0),
+    c => cod_out,
+    s => mux_out(0)
 );
 
 --register
