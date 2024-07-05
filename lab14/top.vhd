@@ -128,6 +128,6 @@ port map(
 
 --led
 
-led => reg;
+led <= reg;
 
 end arch;
